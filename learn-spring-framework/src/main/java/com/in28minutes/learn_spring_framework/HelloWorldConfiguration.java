@@ -1,7 +1,9 @@
 package com.in28minutes.learn_spring_framework;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 record Person(String name, int age) {}
 
@@ -35,7 +37,14 @@ public class HelloWorldConfiguration {
 	}
 	
 	@Bean(name = "customAddress")
+	@Primary
 	public Address address() {
 		return new Address("경기도", "광주");
+	}
+	
+	@Bean(name = "customAddress1")
+	@Qualifier("address1Qualifier")
+	public Address address1() {
+		return new Address("서울", "특별시");
 	}
 }

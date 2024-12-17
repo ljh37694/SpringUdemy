@@ -8,14 +8,13 @@ import com.in28minutes.learn_spring_framework.game.GameRunner;
 import com.in28minutes.learn_spring_framework.game.GamingConsole;
 
 @Configuration
-@ComponentScan("com.in28minutes.learn_spring_framework.game")
+@ComponentScan
 public class SimpleSpringContextLauncherApplication {	
 	public static void main(String[] args) {
 		try(var context = 
 				new AnnotationConfigApplicationContext
 					(SimpleSpringContextLauncherApplication.class)) {
-			context.getBean(GamingConsole.class).up();
-			context.getBean(GameRunner.class).run();
+			System.out.println(context.getBean(BusinessCalculationService.class).findMax());
 		}
 	}
 }

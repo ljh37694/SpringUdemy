@@ -1,4 +1,4 @@
-package com.in28minutes.learn_spring_framework.examples.b0;
+package com.in28minutes.learn_spring_framework.examples.d1;
 
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

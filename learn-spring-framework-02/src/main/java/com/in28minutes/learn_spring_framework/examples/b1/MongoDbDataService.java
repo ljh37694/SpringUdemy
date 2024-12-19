@@ -1,8 +1,9 @@
 package com.in28minutes.learn_spring_framework.examples.b1;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class MongoDbDataService implements DataService {
 	@Override
 	public int[] retrieveData() {

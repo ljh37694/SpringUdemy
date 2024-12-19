@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import com.in28minutes.learn_spring_framework.game.GameRunner;
 import com.in28minutes.learn_spring_framework.game.GamingConsole;
 
-@Configuration
 @ComponentScan
 public class RealWorldLauncherApplication {	
 	public static void main(String[] args) {

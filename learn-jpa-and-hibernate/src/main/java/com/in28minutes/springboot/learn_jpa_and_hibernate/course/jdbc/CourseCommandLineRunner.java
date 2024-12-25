@@ -6,23 +6,31 @@ import org.springframework.stereotype.Component;
 
 import com.in28minutes.springboot.learn_jpa_and_hibernate.course.Course;
 import com.in28minutes.springboot.learn_jpa_and_hibernate.course.jpa.CourseJpaRepository;
+import com.in28minutes.springboot.learn_jpa_and_hibernate.course.springdatajpa.CourseSpringDataJpaRepository;
 
 @Component
 public class CourseCommandLineRunner implements CommandLineRunner {
 //	@Autowired
 //	private CourseJdbcRepository repository;
 	
+//	@Autowired
+//	private CourseJpaRepository repository;
+	
 	@Autowired
-	private CourseJpaRepository repository;
+	private CourseSpringDataJpaRepository repository;
 	
 	@Override
 	public void run(String... args) throws Exception {
-		repository.insert(new Course(1, "Learn Spring jpa", "in28minutes"));
-		repository.insert(new Course(2, "Learn React jpa", "in28minutes"));
-		repository.insert(new Course(3, "Learn NodeJs jpa", "in28minutes"));
+		repository.save(new Course(1, "Learn Spring springjpa", "in28minutes"));
+		repository.save(new Course(2, "Learn React springjpa", "in28minutes"));
+		repository.save(new Course(3, "Learn NodeJs springjpa", "in28minutes"));
 		
-		repository.deleteById(3);
+		repository.deleteById(3l);
 		
-		System.out.println(repository.findById(2));
+		System.out.println(repository.findById(2l));
+		System.out.println(repository.findAll());
+		System.out.println(repository.findByAuthor("in28minutes"));
+		
+		System.out.println(repository.findByName("Learn React springjpa"));
 	}
 }

@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
@@ -8,6 +9,7 @@
 	<body>
 		<div>
 			<form>
+				<h1>${name}</h1>
 				<input type="text" placeholder="ID" />
 				<input type="password" placeholder="Password" />
 				<button>로그인</button>

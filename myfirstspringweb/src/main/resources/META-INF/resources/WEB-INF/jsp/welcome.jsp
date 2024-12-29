@@ -8,12 +8,8 @@
 	
 	<body>
 		<div>
-			<p>${errorMessage}</p>
-			<form method="post">
-				<input type="text" placeholder="id" name="name" />
-				<input type="password" placeholder="password" name="password" />
-				<button type="submit">로그인</button>
-			</form>
+			<p>Welccome back</p>
+			<p>Your Name: ${name}</p>
 		</div>
 	</body>
 </html>

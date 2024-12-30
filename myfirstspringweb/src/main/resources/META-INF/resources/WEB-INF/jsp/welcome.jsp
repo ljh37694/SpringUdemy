@@ -10,6 +10,7 @@
 		<div>
 			<p>Welccome back</p>
 			<p>Your Name: ${name}</p>
+			<a href="/todo-list">go to Todo List</a>
 		</div>
 	</body>
 </html>

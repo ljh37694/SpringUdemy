@@ -2,13 +2,14 @@
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
-		<title>login page</title>
+		<title>welcome</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	</head>
 	
 	<body>
 		<div>
-			<p>Welccome back</p>
+			<h1>Welccome back</h1>
+			<hr>
 			<p>Your Name: ${name}</p>
 			<a href="/todo-list">go to Todo List</a>
 		</div>

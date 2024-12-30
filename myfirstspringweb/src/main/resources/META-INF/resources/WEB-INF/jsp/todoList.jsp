@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
@@ -7,9 +9,27 @@
 	</head>
 	
 	<body>
-		<p>User: ${name}</p>
-		<div>
-			${todoList}
-		</div>
+		<h1>User: ${name}</h1>
+		
+		<table>
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Description</th>
+					<th>Targe Date</th>
+					<th>Is Done</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${todoList}" var="todo">
+					<tr>
+						<td>${todo.id}</td>
+						<td>${todo.description}</td>
+						<td>${todo.targetDate}</td>
+						<td>${todo.done}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	</body>
 </html>

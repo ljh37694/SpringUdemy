@@ -2,18 +2,21 @@
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
-		<title>login page</title>
+		<title>add todo</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<link href="webjars/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 	
 	<body>
-		<div>
-			<p>${errorMessage}</p>
-			<form method="post">
-				<input type="text" placeholder="id" name="name" />
-				<input type="password" placeholder="password" name="password" />
-				<button type="submit">로그인</button>
+		<div class="container">
+			<h1>Enter Todo Detail</h1>
+			
+			<form method="POST" action="todo-list">
+				<div class="d-flex">
+					<p class="me-2">Description: </p>
+					<input type="text" name="description" class="me-2" />
+					<button type="submit" class="btn btn-success">Add</button>
+				</div>
 			</form>
 		</div>
 		

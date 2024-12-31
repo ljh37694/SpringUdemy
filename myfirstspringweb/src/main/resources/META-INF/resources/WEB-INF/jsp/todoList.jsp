@@ -6,33 +6,36 @@
 	<head>
 		<title>todo</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<link href="webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+		<link href="webjars/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 	
 	<body>
-		<h1>User: ${name}</h1>
+		<div class="container">
+			<h1 class="mt-3">User: ${name}</h1>
 		
-		<table>
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Description</th>
-					<th>Targe Date</th>
-					<th>Is Done</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${todoList}" var="todo">
+			<table class="table">
+				<thead>
 					<tr>
-						<td>${todo.id}</td>
-						<td>${todo.description}</td>
-						<td>${todo.targetDate}</td>
-						<td>${todo.done}</td>
+						<th>Id</th>
+						<th>Description</th>
+						<th>Target Date</th>
+						<th>Is Done</th>
 					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		
+				</thead>
+				<tbody>
+					<c:forEach items="${todoList}" var="todo">
+						<tr>
+							<td>${todo.id}</td>
+							<td>${todo.description}</td>
+							<td>${todo.targetDate}</td>
+							<td>${todo.done}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+			<a href="add-todo" class="btn btn-success">Add Todo</a>	
+		</div>
+
 		<script src="webjars/jquery/3.7.1/jquery.min.js"></script>
 		<script src="webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
 	</body>

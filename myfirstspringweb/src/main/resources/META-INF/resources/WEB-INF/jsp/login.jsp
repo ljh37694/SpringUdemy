@@ -10,7 +10,7 @@
 	<body>
 		<div>
 			<p>${errorMessage}</p>
-			<form method="post">
+			<form method="POST">
 				<input type="text" placeholder="id" name="name" />
 				<input type="password" placeholder="password" name="password" />
 				<button type="submit">로그인</button>

@@ -11,7 +11,7 @@
 		<div class="container">
 			<h1>Enter Todo Detail</h1>
 			
-			<form method="POST" action="todo-list">
+			<form method="POST">
 				<div class="d-flex">
 					<p class="me-2">Description: </p>
 					<input type="text" name="description" class="me-2" />

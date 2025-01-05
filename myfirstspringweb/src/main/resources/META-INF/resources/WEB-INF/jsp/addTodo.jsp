@@ -14,12 +14,13 @@
 			<h1>Enter Todo Detail</h1>
 			
 			<form:form method="POST" modelAttribute="todo">
-				<div class="d-flex">
-					<p class="me-2">Description: </p>
+				<div class="d-flex align-items-center">
+					<p class="me-2 mb-0">Description: </p>
 					<form:input path="description" type="text" name="description" class="me-2" required="required" />
 					<form:input path="id" type="hidden" name="id" />
 					<form:input path="done" type="hidden" name="done" />
 					<button type="submit" class="btn btn-success">Add</button>
+					<form:errors cssClass="ms-2 text-warning" path="description" />
 				</div>
 			</form:form>
 		</div>

@@ -3,6 +3,8 @@ package com.in28minutes.spring.myfirstspringweb.todo;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -25,16 +27,17 @@ public class TodoController {
 
 	@RequestMapping("todo-list")
 	public String todoListPage(ModelMap model) {
-		List<Todo> todoList = todoService.findByUsername("name");
+		String username = getLoggedinUsername(model);
+		List<Todo> todoList = todoService.findByUsername(username);
 		
-		model.put("todoList", todoList);
+		model.addAttribute("todoList", todoList);
 		
 		return "todoList";
 	}
 	
 	@RequestMapping(value="add-todo", method=RequestMethod.GET)
 	public String addTodoPage(ModelMap model) {
-		Todo todo = new Todo(0, (String)model.get("name"), "", LocalDate.now(), false);
+		Todo todo = new Todo(0, getLoggedinUsername(model), "", LocalDate.now(), false);
 		
 		model.put("todo", todo);
 		
@@ -47,7 +50,7 @@ public class TodoController {
 			return "addTodo";
 		}
 		
-		todoService.addTodo((String)model.get("name"), todo.getDescription(), todo.getTargetDate(), false);
+		todoService.addTodo(getLoggedinUsername(model), todo.getDescription(), todo.getTargetDate(), false);
 		
 		return "redirect:todo-list";
 	}
@@ -79,5 +82,12 @@ public class TodoController {
 		todoService.updateTodo(todo);
 		
 		return "redirect:todo-list";
+	}
+	
+	private String getLoggedinUsername(ModelMap model) {
+		Authentication authentication = 
+				SecurityContextHolder.getContext().getAuthentication();
+		
+		return authentication.getName();
 	}
 }

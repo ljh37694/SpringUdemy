@@ -17,7 +17,7 @@ public class TodoService {
 		todoList.add(new Todo(++todoCount, "name", "Learn spring", 
 				LocalDate.now().plusYears(1), false));
 		
-		todoList.add(new Todo(++todoCount, "lee", "Learn react", 
+		todoList.add(new Todo(++todoCount, "Lee", "Learn react", 
 				LocalDate.now().plusYears(2), true));
 		
 		todoList.add(new Todo(++todoCount, "park", "Learn cpp", 
@@ -25,7 +25,9 @@ public class TodoService {
 	}
 	
 	public List<Todo> findByUsername(String username) {
-		return todoList;
+		Predicate<? super Todo> predicate = todo -> todo.getUsername().equalsIgnoreCase(username);
+		
+		return todoList.stream().filter(predicate).toList();
 	}
 	
 	public Todo findById(int id) {

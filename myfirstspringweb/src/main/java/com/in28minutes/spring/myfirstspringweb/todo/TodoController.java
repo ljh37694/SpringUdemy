@@ -27,7 +27,7 @@ public class TodoController {
 
 	@RequestMapping("todo-list")
 	public String todoListPage(ModelMap model) {
-		String username = getLoggedinUsername(model);
+		String username = getLoggedinUsername();
 		List<Todo> todoList = todoService.findByUsername(username);
 		
 		model.addAttribute("todoList", todoList);
@@ -37,7 +37,7 @@ public class TodoController {
 	
 	@RequestMapping(value="add-todo", method=RequestMethod.GET)
 	public String addTodoPage(ModelMap model) {
-		Todo todo = new Todo(0, getLoggedinUsername(model), "", LocalDate.now(), false);
+		Todo todo = new Todo(0, getLoggedinUsername(), "", LocalDate.now(), false);
 		
 		model.put("todo", todo);
 		
@@ -50,7 +50,7 @@ public class TodoController {
 			return "addTodo";
 		}
 		
-		todoService.addTodo(getLoggedinUsername(model), todo.getDescription(), todo.getTargetDate(), false);
+		todoService.addTodo(getLoggedinUsername(), todo.getDescription(), todo.getTargetDate(), false);
 		
 		return "redirect:todo-list";
 	}
@@ -72,19 +72,18 @@ public class TodoController {
 	}
 	
 	@RequestMapping(value="update-todo", method=RequestMethod.POST)
-	public String updateTodo(ModelMap model, @RequestParam int id,
-			@Valid Todo todo, BindingResult result) {
-		
+	public String updateTodo(ModelMap model, @Valid Todo todo, BindingResult result) {
 		if (result.hasErrors()) {
 			return "addTodo";
 		}
 		
+		todo.setUsername(getLoggedinUsername());
 		todoService.updateTodo(todo);
 		
 		return "redirect:todo-list";
 	}
 	
-	private String getLoggedinUsername(ModelMap model) {
+	private String getLoggedinUsername() {
 		Authentication authentication = 
 				SecurityContextHolder.getContext().getAuthentication();
 		

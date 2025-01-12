@@ -17,10 +17,11 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SpringSecurityConfiguration {	
 	@Bean
 	public InMemoryUserDetailsManager createUserDetailsManger() {
+		UserDetails userDetails = createNewUser("Lee", "hi");
 		UserDetails userDetails1 = createNewUser("asdf", "asdf");
 		UserDetails userDetails2 = createNewUser("zxcv", "zxcv");
 		
-		return new InMemoryUserDetailsManager(userDetails1, userDetails2);
+		return new InMemoryUserDetailsManager(userDetails, userDetails1, userDetails2);
 	}
 
 	private UserDetails createNewUser(String name, String password) {

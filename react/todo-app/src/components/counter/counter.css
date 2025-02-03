@@ -1,0 +1,38 @@
+.counter {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.count {
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.counter-button {
+  text-align: center;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5em;
+  height: 1.5em;
+  padding: 5px;
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+.counter-button:hover {
+  background-color: gray;
+}
+
+.counter-button:not(:last-child) {
+  margin-right: 5px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

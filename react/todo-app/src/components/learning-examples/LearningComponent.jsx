@@ -1,5 +1,5 @@
-import ClassComponent from "./learning-examples/ClassComponent";
-import FunctionComponent from "./learning-examples/FunctionComponent";
+import ClassComponent from "./ClassComponent";
+import FunctionComponent from "./FunctionComponent";
 
 export default function LearningComponent() {
   return (

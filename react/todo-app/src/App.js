@@ -1,32 +1,12 @@
-import { Component } from 'react';
 import './App.css';
+import LearningComponent from './components/LearningComponent';
 
 function App() {
   return (
     <div className="App">
-      <FunctionComponent />
-      <hr></hr>
-      <ClassComponent />
+      <LearningComponent />
     </div>
   );
-}
-
-function FunctionComponent() {
-  return (
-    <div className="function-component">
-      <p>Function Component</p>
-    </div>
-  );
-}
-
-class ClassComponent extends Component {
-  render() {
-    return (
-      <div className="class-component">
-        <p>Class Component</p>
-      </div>
-    );
-  }
 }
 
 export default App;

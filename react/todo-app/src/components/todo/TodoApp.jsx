@@ -11,6 +11,7 @@ function TodoApp() {
           <Route path="/" element={<LoginComponent />} />
           <Route path="/login" element={<LoginComponent />} />
           <Route path="/welcome" element={<WelcomeComponent />} />
+          <Route path="*" element={<ErrorComponent />} />
         </Routes>
       </BrowserRouter>
     </div>
@@ -45,6 +46,14 @@ function WelcomeComponent() {
   return (
     <div className="welcome-comp">
       <h2>Welcome Lee</h2>
+    </div>
+  );
+}
+
+function ErrorComponent() {
+  return (
+    <div className="error-comp">
+      <h2>404 - Page not found</h2>
     </div>
   );
 }

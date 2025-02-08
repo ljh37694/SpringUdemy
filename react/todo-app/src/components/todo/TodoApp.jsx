@@ -4,18 +4,21 @@ import { BrowserRouter, Link, Route, Routes, useNavigate, useParams } from "reac
 function TodoApp() {
   return (
     <div className="todo-app">
-      <h1>Todo App</h1>
+      <HeaderComponent />
       
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginComponent />} />
           <Route path="/login" element={<LoginComponent />} />
+          <Route path="/logout" element={<LogoutComponent />} />
           <Route path="/welcome/:username" element={<WelcomeComponent />} />
           <Route path="/todos" element={<TodoListComponent />} />
 
           <Route path="*" element={<ErrorComponent />} />
         </Routes>
       </BrowserRouter>
+
+      <FooterComponent />
     </div>
   );
 }
@@ -91,7 +94,36 @@ function TodoListComponent() {
         </tbody>
       </table>
     </div>
-  )
+  );
+}
+
+function HeaderComponent() {
+  return (
+    <div className="header">
+      <h1>Header</h1>
+      <hr />
+    </div>
+  );
+}
+
+function FooterComponent() {
+  return (
+    <div className="footer">
+      <hr />
+      <h1>Footer</h1>
+    </div>
+  );
+}
+
+function LogoutComponent() {
+  return (
+    <div className="logout-comp">
+      <h2>You are logged out</h2>
+      <div className="container">
+        Thank you for using our application.
+      </div>
+    </div>
+  );
 }
 
 export default TodoApp;

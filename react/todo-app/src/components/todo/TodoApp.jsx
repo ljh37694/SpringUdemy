@@ -73,9 +73,9 @@ function TodoListComponent() {
   ];
 
   return (
-    <div>
+    <div className="container">
       <h1>Todo List</h1>
-      <table>
+      <table className="table">
         <thead>
           <tr>
             <th>Description</th>

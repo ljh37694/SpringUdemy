@@ -6,25 +6,28 @@ import TodoListComponent from "./TodoList";
 import FooterComponent from "./Footer";
 import HeaderComponent from "./Header";
 import ErrorComponent from "./Error";
+import AuthProvider from "./security/AuthContext";
 
 function TodoApp() {
   return (
     <div className="todo-app">
-      <BrowserRouter>
-        <HeaderComponent />
+      <AuthProvider>
+        <BrowserRouter>
+          <HeaderComponent />
 
-        <Routes>
-          <Route path="/" element={<LoginComponent />} />
-          <Route path="/login" element={<LoginComponent />} />
-          <Route path="/logout" element={<LogoutComponent />} />
-          <Route path="/welcome/:username" element={<WelcomeComponent />} />
-          <Route path="/todos" element={<TodoListComponent />} />
+          <Routes>
+            <Route path="/" element={<LoginComponent />} />
+            <Route path="/login" element={<LoginComponent />} />
+            <Route path="/logout" element={<LogoutComponent />} />
+            <Route path="/welcome/:username" element={<WelcomeComponent />} />
+            <Route path="/todos" element={<TodoListComponent />} />
 
-          <Route path="*" element={<ErrorComponent />} />
-        </Routes>
+            <Route path="*" element={<ErrorComponent />} />
+          </Routes>
 
-        <FooterComponent />
-      </BrowserRouter>
+          <FooterComponent />
+        </BrowserRouter>
+      </AuthProvider>
     </div>
   );
 }

@@ -1,13 +1,17 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "./security/AuthContext";
 
 function HeaderComponent() {
+  const { auth } = useContext(AuthContext);
+
   return (
     <div className="header border-bottom border-secondary navbar-expand">
       <nav className="navbar navbar-expand-lg navbar-light bg-light p-2 h-100 d-flex">
         <a href="https://google.com" className="navbar-brand">Todo</a>
         <ul className="navbar-nav flex-row justify-content-start collapse navbar-collapse">
           <li className="nav-item me-2">
-            <Link to="/welcome/Lee" className="nav-link">Home</Link>
+            <Link to={`/welcome/${auth.username}`} className="nav-link">Home</Link>
           </li>
 
           <li className="nav-item me-2">

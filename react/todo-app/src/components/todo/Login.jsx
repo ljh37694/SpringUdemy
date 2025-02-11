@@ -13,6 +13,7 @@ function LoginComponent() {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    
     if (login(username, password)) {
       navigate('/welcome/' + username);
     }

@@ -7,6 +7,7 @@ import FooterComponent from "./Footer";
 import HeaderComponent from "./Header";
 import ErrorComponent from "./Error";
 import AuthProvider from "./security/AuthContext";
+import AuthenticatedRoute from "./security/AuthenticatedRoute";
 
 function TodoApp() {
   return (
@@ -18,11 +19,23 @@ function TodoApp() {
           <Routes>
             <Route path="/" element={<LoginComponent />} />
             <Route path="/login" element={<LoginComponent />} />
-            <Route path="/logout" element={<LogoutComponent />} />
-            <Route path="/welcome/:username" element={<WelcomeComponent />} />
-            <Route path="/todos" element={<TodoListComponent />} />
-
             <Route path="*" element={<ErrorComponent />} />
+
+            <Route path="/welcome/:username" element={
+              <AuthenticatedRoute>
+                <WelcomeComponent />
+              </AuthenticatedRoute>
+            } />
+            <Route path="/todos" element={
+              <AuthenticatedRoute>
+                <TodoListComponent />
+              </AuthenticatedRoute>
+            } />
+            <Route path="/logout" element={
+              <AuthenticatedRoute>
+                <LogoutComponent />
+              </AuthenticatedRoute>
+            } />
           </Routes>
 
           <FooterComponent />

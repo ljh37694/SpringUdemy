@@ -5,14 +5,30 @@ import { useAuth } from "./security/AuthContext";
 function LoginComponent() {
   const [username, setUsername] = useState("Lee");
   const [password, setPassword] = useState("");
+  const [showError, setShowError] = useState(false);
 
   const navigate = useNavigate();
 
-  const { setAuth } = useAuth();
+  const { login } = useAuth();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (login(username, password)) {
+      navigate('/welcome/' + username);
+    }
+
+    else {
+      setShowError(true);
+    }
+  }
 
   return (
-    <div className="login-comp">
+    <form onSubmit={handleLogin} className="login-comp">
       <div>
+        {
+          showError &&
+            <p className="text-danger">Authentication failed. Please check your credentials.</p>
+        }
         <div>
           <label>Username:</label>
           <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
@@ -22,12 +38,9 @@ function LoginComponent() {
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
 
-        <button onClick={() => {
-          navigate('/welcome/' + username);
-          setAuth({ username, password, isLoggedIn: true });
-        }}>login</button>
+        <button type="submit">login</button>
       </div>
-    </div>
+    </form>
   );
 }
 

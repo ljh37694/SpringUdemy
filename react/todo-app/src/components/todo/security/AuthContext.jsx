@@ -11,8 +11,26 @@ export default function AuthProvider({ children }) {
     isLoggedIn: false
   });
 
+  const login = (username, password) => {
+    if (username === "Lee" && password === "password") {
+      setAuth({ username, password, isLoggedIn: true });
+
+      return true;
+    }
+
+    else {
+      setAuth({ username: "", password: "", isLoggedIn: false });
+
+      return false;
+    }
+  }
+
+  const logout = () => { 
+    setAuth({ username: "", password: "", isLoggedIn: false });
+  }
+
   return (
-    <AuthContext.Provider value={{ auth, setAuth }}>
+    <AuthContext.Provider value={{ auth, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

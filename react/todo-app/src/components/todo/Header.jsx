@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 import { useAuth } from "./security/AuthContext";
 
 function HeaderComponent() {
-  const { auth, setAuth } = useAuth();
+  const { auth, logout } = useAuth();
 
   return (
     <div className="header border-bottom border-secondary navbar-expand">
       <nav className="navbar navbar-expand-lg navbar-light bg-light p-2 h-100 d-flex">
-        <a href="https://google.com" className="navbar-brand">Todo</a>
+        <a href="https://google.com" target="_blank" rel="noopener noreferrer" className="navbar-brand">Todo</a>
         <ul className="navbar-nav flex-row justify-content-start collapse navbar-collapse">
           {
             auth.isLoggedIn &&
@@ -28,9 +28,7 @@ function HeaderComponent() {
           {
             auth.isLoggedIn ?
               <li className="nav-item me-2">
-                <Link to="/logout" className="nav-link" onClick={() => {
-                  setAuth({ username: "", password: "", isLoggedIn: false });
-                }}>Logout</Link>
+                <Link to="/logout" className="nav-link" onClick={() => logout()}>Logout</Link>
               </li>
               :
               <li className="nav-item me-2">

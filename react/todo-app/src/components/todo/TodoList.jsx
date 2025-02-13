@@ -1,7 +1,20 @@
+import { useEffect, useState } from "react";
+import { retrieveAllTodosForUsername } from "./api/TodoApiService";
+
 function TodoListComponent() {
-  const todoList = [
-    { id: 1, description: "Learn React", done: false, targetDate: new Date() },
-  ];
+  const [todoList, setTodoList] = useState([]);
+
+  useEffect(() => {
+    retrieveAllTodosForUsername("Lee")
+      .then((res) => { 
+        setTodoList(res.data);
+      })
+      .catch(e => console.error(e));
+  }, []);
+
+  // const todoList = [
+  //   { id: 1, description: "Learn React", done: false, targetDate: new Date() },
+  // ];
 
   return (
     <div className="container">

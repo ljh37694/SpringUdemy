@@ -1,8 +1,25 @@
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import { retrieveHelloWorldBean } from "./api/HelloWorldApiService";
 
 function WelcomeComponent() {
   const { username } = useParams();
+
+  const callHelloWorldRestApi = () => {
+    axios.get(`${process.env.REACT_APP_API_URL}/hello-world`, {
+      withCredentials: true,
+    })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch(e => console.error(e));
+
+    retrieveHelloWorldBean()
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch(e => console.error(e));
+  }
 
   return (
     <div className="welcome-comp">
@@ -10,15 +27,7 @@ function WelcomeComponent() {
 
       <p>Manage your todos - <Link to="/todos">Go here</Link></p>
 
-      <button onClick={() => {
-        axios.get("http://localhost:8080/hello-world", {
-          withCredentials: true,
-        })
-          .then((res) => {
-            console.log(res.data);
-          })
-          .catch(e => console.error(e));
-      }}>Call Hello World</button>
+      <button onClick={callHelloWorldRestApi}>Call Hello World</button>
     </div>
   );
 }

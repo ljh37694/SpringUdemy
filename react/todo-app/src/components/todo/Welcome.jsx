@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
-import { retrieveHelloWorldBean } from "./api/HelloWorldApiService";
+import { retrieveHelloWorldBean, retrieveHelloWorldPathVariable } from "./api/HelloWorldApiService";
 
 function WelcomeComponent() {
   const { username } = useParams();
@@ -15,6 +15,12 @@ function WelcomeComponent() {
       .catch(e => console.error(e));
 
     retrieveHelloWorldBean()
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch(e => console.error(e));
+
+    retrieveHelloWorldPathVariable('Dylan')
       .then((res) => {
         console.log(res.data);
       })

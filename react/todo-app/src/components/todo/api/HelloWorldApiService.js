@@ -2,14 +2,28 @@ import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
+const apiClient = axios.create({
+    baseURL: API_URL,
+    withCredentials: true,
+    headers: {
+        "Content-type": "application/json",
+    },
+});
+
 export function retrieveHelloWorld() {
-    return axios.get(`${API_URL}/hello-world`, {
+    return apiClient.get(`/hello-world`, {
         withCredentials: true,
     });
 }
 
 export const retrieveHelloWorldBean = () => {
-    return axios.get(`${API_URL}/hello-world-bean`, {
+    return apiClient.get(`/hello-world-bean`, {
+        withCredentials: true,
+    });
+}
+
+export const retrieveHelloWorldPathVariable = (name) => {
+    return apiClient.get(`/hello-world/path-variable/${name}`, {
         withCredentials: true,
     });
 }

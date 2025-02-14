@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import io.swagger.v3.oas.models.PathItem.HttpMethod;
+
 @SpringBootApplication
 public class RestfulWebServicesApplication {
 
@@ -20,8 +22,15 @@ public class RestfulWebServicesApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-					.allowedMethods("*")
-					.allowedOrigins("http://localhost:3000");
+					.allowedMethods(
+							HttpMethod.GET.name(),
+			                HttpMethod.HEAD.name(),
+			                HttpMethod.POST.name(),
+			                HttpMethod.PUT.name(),
+			                HttpMethod.DELETE.name())
+					.allowedOrigins("http://localhost:3000")
+					.allowCredentials(true)
+					.allowedHeaders("*");
 			}
 		};
 	}

@@ -1,20 +1,16 @@
 import { useEffect, useState } from "react";
-import { retrieveAllTodosForUsername } from "./api/TodoApiService";
+import { deleteTodoApi, retrieveAllTodosForUsernameApi } from "./api/TodoApiService";
 
 function TodoListComponent() {
   const [todoList, setTodoList] = useState([]);
 
   useEffect(() => {
-    retrieveAllTodosForUsername("Lee")
-      .then((res) => { 
+    retrieveAllTodosForUsernameApi("Lee")
+      .then((res) => {
         setTodoList(res.data);
       })
       .catch(e => console.error(e));
   }, []);
-
-  // const todoList = [
-  //   { id: 1, description: "Learn React", done: false, targetDate: new Date() },
-  // ];
 
   return (
     <div className="container">
@@ -25,14 +21,26 @@ function TodoListComponent() {
             <th>Description</th>
             <th>Done</th>
             <th>Target Date</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
           {todoList.map(todo => (
             <tr key={todo.id}>
               <td>{todo.description}</td>
-              <td>{todo.done.toString()}</td>
-              <td>{todo.targetDate.toString()}</td>
+              <td>{todo.done}</td>
+              <td>{todo.targetDate}</td>
+              <td><button className="btn btn-warning" onClick={() => {
+                deleteTodoApi("Lee", todo.id)
+                  .then(() => {
+                    retrieveAllTodosForUsernameApi("Lee")
+                      .then((res) => {
+                        setTodoList(res.data);
+                      })
+                      .catch(e => console.error(e));
+                  })
+                  .catch(e => console.error(e));
+              }}>Delete</button></td>
             </tr>
           ))}
         </tbody>

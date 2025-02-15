@@ -37,8 +37,11 @@ public class TodoService {
 		return todo;
 	}
 	
-	public void addTodo(String username, String description, LocalDate targetDate, boolean done) {
-		todoList.add(new Todo(++todoCount, username, description, targetDate, done));
+	public Todo addTodo(String username, String description, LocalDate targetDate, boolean done) {
+		Todo todo = new Todo(++todoCount, username, description, targetDate, done);
+		todoList.add(todo);
+		
+		return todo;
 	}
 	
 	public Todo deleteById(int id) {

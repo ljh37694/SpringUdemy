@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
 @RestController
@@ -34,10 +34,15 @@ public class TodoResource {
 	}
 	
 	@PostMapping("/users/{username}/todo-list")
-	public void addTodo(@PathVariable String username, @Valid @RequestBody Todo todo) {
-		todoService.addTodo(
+	public Todo createTodo(@PathVariable String username, @Valid @RequestBody Todo todo) {
+		Todo createdTodo = todoService.addTodo(
 				username, todo.getDescription(), 
 				todo.getTargetDate(), todo.isDone());
+		
+		System.out.println(todo);
+		
+		return createdTodo;
+		
 	}
 	
 	@DeleteMapping("/users/{username}/todo-list/{id}")
@@ -48,12 +53,14 @@ public class TodoResource {
 	}
 	
 	@PutMapping("/users/{username}/todo-list/{id}")
-	public ResponseEntity<Void> updateTodo(
+	public Todo updateTodo(
 			@PathVariable String username, 
 			@PathVariable int id,
 			@Valid @RequestBody Todo todo) {
 		todoService.updateTodo(todo);
 		
-		return ResponseEntity.noContent().build();
+		System.out.println(todo);
+		
+		return todo;
 	}
 }

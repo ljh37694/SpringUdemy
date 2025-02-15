@@ -2,6 +2,8 @@ package com.rest.webservices.restful_web_services.todo;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -16,7 +18,10 @@ public class Todo {
 	
 	@Size(min=5, message="Enter at least 10 characters")
 	private String description;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate targetDate;
+	
 	private boolean done;
 	
 	public Todo() {
@@ -63,7 +68,7 @@ public class Todo {
 	public void setTargetDate(LocalDate targetDate) {
 		this.targetDate = targetDate;
 	}
-
+	
 	public boolean isDone() {
 		return done;
 	}

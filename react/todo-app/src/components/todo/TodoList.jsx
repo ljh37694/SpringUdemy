@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { deleteTodoApi, retrieveAllTodosForUsernameApi } from "./api/TodoApiService";
 import { useAuth } from "./security/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function TodoListComponent() {
   const [todoList, setTodoList] = useState([]);
   const { auth } = useAuth();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     retrieveAllTodosForUsernameApi(auth.username)
@@ -24,6 +27,7 @@ function TodoListComponent() {
             <th>Done</th>
             <th>Target Date</th>
             <th>Delete</th>
+            <th>Update</th>
           </tr>
         </thead>
         <tbody>
@@ -33,7 +37,7 @@ function TodoListComponent() {
               <td>{todo.done}</td>
               <td>{todo.targetDate}</td>
               <td><button className="btn btn-warning" onClick={() => {
-                deleteTodoApi("Lee", todo.id)
+                deleteTodoApi(auth.username, todo.id)
                   .then(() => {
                     retrieveAllTodosForUsernameApi(auth.username)
                       .then((res) => {
@@ -43,6 +47,11 @@ function TodoListComponent() {
                   })
                   .catch(e => console.error(e));
               }}>Delete</button></td>
+              <td>
+                <button className="btn btn-success" onClick={() => {
+                  navigate(`/todo/${todo.id}`);
+                }}>Update</button>
+              </td>
             </tr>
           ))}
         </tbody>

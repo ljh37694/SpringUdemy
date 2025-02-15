@@ -16,6 +16,14 @@ export const retrieveAllTodosForUsernameApi = (username) => {
     return apiClient.get(`/users/${username}/todo-list`);
 }
 
+export const retrieveTodoApi = (username, id) => {
+    return apiClient.get(`/users/${username}/todo-list/${id}`);
+}
+
 export const deleteTodoApi = (username, id) => {
     return apiClient.delete(`/users/${username}/todo-list/${id}`);
+}
+
+export const updateTodoApi = (username, id, todo) => {
+    return apiClient.put(`/users/${username}/todo-list/${id}`, todo);
 }

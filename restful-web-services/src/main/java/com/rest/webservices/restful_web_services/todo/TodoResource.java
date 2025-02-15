@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -42,6 +43,16 @@ public class TodoResource {
 	@DeleteMapping("/users/{username}/todo-list/{id}")
 	public ResponseEntity<Void> deleteTodo(@PathVariable String username, @PathVariable int id) {
 		todoService.deleteById(id);
+		
+		return ResponseEntity.noContent().build();
+	}
+	
+	@PutMapping("/users/{username}/todo-list/{id}")
+	public ResponseEntity<Void> updateTodo(
+			@PathVariable String username, 
+			@PathVariable int id,
+			@Valid @RequestBody Todo todo) {
+		todoService.updateTodo(todo);
 		
 		return ResponseEntity.noContent().build();
 	}

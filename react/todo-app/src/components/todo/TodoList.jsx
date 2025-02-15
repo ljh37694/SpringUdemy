@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { deleteTodoApi, retrieveAllTodosForUsernameApi } from "./api/TodoApiService";
+import { useAuth } from "./security/AuthContext";
 
 function TodoListComponent() {
   const [todoList, setTodoList] = useState([]);
+  const { auth } = useAuth();
 
   useEffect(() => {
-    retrieveAllTodosForUsernameApi("Lee")
+    retrieveAllTodosForUsernameApi(auth.username)
       .then((res) => {
         setTodoList(res.data);
       })
       .catch(e => console.error(e));
-  }, []);
+  }, [auth]);
 
   return (
     <div className="container">
@@ -33,7 +35,7 @@ function TodoListComponent() {
               <td><button className="btn btn-warning" onClick={() => {
                 deleteTodoApi("Lee", todo.id)
                   .then(() => {
-                    retrieveAllTodosForUsernameApi("Lee")
+                    retrieveAllTodosForUsernameApi(auth.username)
                       .then((res) => {
                         setTodoList(res.data);
                       })

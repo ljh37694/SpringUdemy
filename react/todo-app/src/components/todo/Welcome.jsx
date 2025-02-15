@@ -20,7 +20,7 @@ function WelcomeComponent() {
       })
       .catch(e => console.error(e));
 
-    retrieveHelloWorldPathVariable('Dylan')
+    retrieveHelloWorldPathVariable(username)
       .then((res) => {
         console.log(res.data);
       })

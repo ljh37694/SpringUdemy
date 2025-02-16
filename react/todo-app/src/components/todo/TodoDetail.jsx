@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "./security/AuthContext";
-import { retrieveTodoApi, updateTodoApi } from "./api/TodoApiService";
+import { addTodoApi, retrieveTodoApi, updateTodoApi } from "./api/TodoApiService";
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import moment from "moment";
 
 function TodoDetail() {
   const [todo, setTodo] = useState({});
@@ -15,24 +16,36 @@ function TodoDetail() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    retrieveTodoApi(auth.username, id)
-      .then((res) => {
-        setTodo(res.data);
+    if (id !== "-1") {
+      retrieveTodoApi(auth.username, id)
+        .then((res) => {
+          setTodo(res.data);
 
-        setDescription(res.data.description);
-        setTargetDate(res.data.targetDate);
-      })
-      .catch(e => console.error(e));
+          setDescription(res.data.description);
+          setTargetDate(res.data.targetDate);
+        })
+        .catch(e => console.error(e));
+    }
   }, [auth, id]);
 
   const onSubmit = (values) => {
-    updateTodoApi(auth.username, id, { ...todo, ...values })
-      .then(() => {
-        navigate("/todos");
-      })
-      .catch(e => console.error(e));
+    if (id === "-1") {
+      const newTodo = { ...values };
 
-    console.log("values: ", values);
+      addTodoApi(auth.username, newTodo)
+        .then(() => {
+          navigate("/todos");
+        })
+        .catch(e => console.error(e));
+    }
+
+    else {
+      updateTodoApi(auth.username, id, { ...todo, ...values })
+        .then(() => {
+          navigate("/todos");
+        })
+        .catch(e => console.error(e));
+    }
   }
 
   const validate = (values) => {
@@ -44,7 +57,7 @@ function TodoDetail() {
       errors.description = "Enter at least 5 characters in the description";
     }
 
-    if (!values.targetDate) {
+    if (!values.targetDate || !moment(values.targetDate).isValid()) {
       errors.targetDate = "Enter a target date";
     }
 
@@ -54,18 +67,7 @@ function TodoDetail() {
   return (
     <div>
       <h1>Todo Detail</h1>
-      <div>
-        <label>Description: </label>
-        <span>{description}</span>
-      </div>
-      <div>
-        <label>Done: </label>
-        <span>{todo.done}</span>
-      </div>
-      <div>
-        <label>Target Date: </label>
-        <span>{targetDate}</span>
-      </div>
+
       <Formik
         initialValues={{ description, targetDate }}
         onSubmit={onSubmit}

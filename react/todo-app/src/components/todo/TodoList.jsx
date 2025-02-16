@@ -17,6 +17,26 @@ function TodoListComponent() {
       .catch(e => console.error(e));
   }, [auth]);
 
+  const deleteTodo = (id) => {
+    deleteTodoApi(auth.username, id)
+      .then(() => {
+        retrieveAllTodosForUsernameApi(auth.username)
+          .then((res) => {
+            setTodoList(res.data);
+          })
+          .catch(e => console.error(e));
+      })
+      .catch(e => console.error(e));
+  }
+
+  const updateTodo = (id) => {
+    navigate(`/todo/${id}`);
+  }
+
+  const addTodo = () => {
+    navigate("/todo/-1");
+  }
+
   return (
     <div className="container">
       <h1>Todo List</h1>
@@ -24,8 +44,8 @@ function TodoListComponent() {
         <thead>
           <tr>
             <th>Description</th>
-            <th>Done</th>
             <th>Target Date</th>
+            <th>Done</th>
             <th>Delete</th>
             <th>Update</th>
           </tr>
@@ -34,28 +54,18 @@ function TodoListComponent() {
           {todoList.map(todo => (
             <tr key={todo.id}>
               <td>{todo.description}</td>
-              <td>{todo.done}</td>
               <td>{todo.targetDate}</td>
-              <td><button className="btn btn-warning" onClick={() => {
-                deleteTodoApi(auth.username, todo.id)
-                  .then(() => {
-                    retrieveAllTodosForUsernameApi(auth.username)
-                      .then((res) => {
-                        setTodoList(res.data);
-                      })
-                      .catch(e => console.error(e));
-                  })
-                  .catch(e => console.error(e));
-              }}>Delete</button></td>
+              <td>{todo.done ? "true" : "false"}</td>
+              <td><button className="btn btn-warning" onClick={() => deleteTodo(todo.id)}>Delete</button></td>
               <td>
-                <button className="btn btn-success" onClick={() => {
-                  navigate(`/todo/${todo.id}`);
-                }}>Update</button>
+                <button className="btn btn-success" onClick={() => updateTodo(todo.id)}>Update</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      <button className="btn btn-success" onClick={addTodo}>Add</button>
     </div>
   );
 }

@@ -9,6 +9,7 @@ const apiClient = axios.create({
     withCredentials: true, 
     headers: {
         "Content-type": "application/json",
+        'Authorization': "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
     },
 });
 
@@ -18,6 +19,10 @@ export const retrieveAllTodosForUsernameApi = (username) => {
 
 export const retrieveTodoApi = (username, id) => {
     return apiClient.get(`/users/${username}/todo-list/${id}`);
+}
+
+export const addTodoApi = (username, todo) => {
+    return apiClient.post(`/users/${username}/todo-list`, todo);
 }
 
 export const deleteTodoApi = (username, id) => {

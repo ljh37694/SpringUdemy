@@ -2,6 +2,7 @@ package com.rest.webservices.restful_web_services.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
@@ -19,7 +20,10 @@ public class SpringSecurityConfiguration {
 		
 		// 1. All requests should be authenticated
 		http.authorizeHttpRequests(
-				auth -> auth.anyRequest().authenticated()
+				auth -> 
+					auth
+					.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+					.anyRequest().authenticated()
 				);
 		
 		// 2. If a request is not authenticated, a web page is shown
@@ -32,7 +36,7 @@ public class SpringSecurityConfiguration {
 		return http.build();
 	}
 	
-	@Bean
+	//@Bean
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of("http://localhost:3000"));

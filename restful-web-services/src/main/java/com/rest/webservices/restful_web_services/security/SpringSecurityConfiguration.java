@@ -12,7 +12,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 import java.util.List;
 
-@Configuration
+//@Configuration
 public class SpringSecurityConfiguration {
 	
 	@Bean

@@ -1,14 +1,11 @@
-import axios from "axios";
 import { Link, useParams } from "react-router-dom";
-import { retrieveHelloWorldBean, retrieveHelloWorldPathVariable } from "./api/HelloWorldApiService";
+import { retrieveHelloWorld, retrieveHelloWorldBean, retrieveHelloWorldPathVariable } from "./api/HelloWorldApiService";
 
 function WelcomeComponent() {
   const { username } = useParams();
 
   const callHelloWorldRestApi = () => {
-    axios.get(`${process.env.REACT_APP_API_URL}/hello-world`, {
-      withCredentials: true,
-    })
+    retrieveHelloWorld()
       .then((res) => {
         console.log(res.data);
       })

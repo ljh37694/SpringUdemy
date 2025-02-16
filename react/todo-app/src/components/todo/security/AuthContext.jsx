@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { excuteBaiscAuthenticationService } from "../api/HelloWorldApiService";
+import { apiClient } from "../api/ApiClient";
 
 export const AuthContext = createContext();
 
@@ -23,6 +24,12 @@ export default function AuthProvider({ children }) {
       if (response.status === 200) {
         setAuth({ username, password, isLoggedIn: true });
         setToken(token);
+
+        apiClient.interceptors.request.use((config) => {
+          config.headers.Authorization = token;
+
+          return config;
+        });
 
         return true;
       } else {

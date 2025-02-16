@@ -1,17 +1,5 @@
-import axios from "axios";
+import { apiClient } from "./ApiClient";
 
-const API_URL = process.env.REACT_APP_API_URL;
-
-console.log("API_URL: ", API_URL);
-
-const apiClient = axios.create({ 
-    baseURL: API_URL, 
-    withCredentials: true, 
-    headers: {
-        "Content-type": "application/json",
-        'Authorization': "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
-    },
-});
 
 export const retrieveAllTodosForUsernameApi = (username) => {
     return apiClient.get(`/users/${username}/todo-list`);

@@ -27,3 +27,11 @@ export const retrieveHelloWorldPathVariable = (name) => {
         withCredentials: true,
     });
 }
+
+export const excuteBaiscAuthenticationService = (token) => {
+    return apiClient.get(`/basicauth`, {
+        headers: {
+            'Authorization': token,
+        },
+    });
+}

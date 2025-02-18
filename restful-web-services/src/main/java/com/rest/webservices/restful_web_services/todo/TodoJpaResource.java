@@ -14,40 +14,40 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 
-//@RestController
+@RestController
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
-public class TodoResource {
+public class TodoJpaResource {
 	private TodoService todoService;
 	
-	public TodoResource(TodoService todoService) {
+	private TodoRepository todoRepository;
+	
+	public TodoJpaResource(TodoService todoService, TodoRepository todoRepository) {
 		this.todoService = todoService;
+		this.todoRepository = todoRepository;
 	}
 	
 	@GetMapping(path = "/users/{username}/todo-list")
 	public List<Todo> retrieveTodoList(@PathVariable String username) {
-		return todoService.findByUsername(username);
+		return todoRepository.findByUsername(username);
 	}
 	
 	@GetMapping("/users/{username}/todo-list/{id}")
 	public Todo retrieveTodo(@PathVariable String username, @PathVariable int id) {
-		return todoService.findById(id);
+		return todoRepository.findById(id).get();
 	}
 	
 	@PostMapping("/users/{username}/todo-list")
 	public Todo createTodo(@PathVariable String username, @Valid @RequestBody Todo todo) {
-		Todo createdTodo = todoService.addTodo(
-				username, todo.getDescription(), 
-				todo.getTargetDate(), todo.isDone());
+		todo.setId(null);
+		todo.setUsername(username);
 		
-		System.out.println(todo);
-		
-		return createdTodo;
+		return todoRepository.save(todo);
 		
 	}
 	
 	@DeleteMapping("/users/{username}/todo-list/{id}")
 	public ResponseEntity<Void> deleteTodo(@PathVariable String username, @PathVariable int id) {
-		todoService.deleteById(id);
+		todoRepository.deleteById(id);
 		
 		return ResponseEntity.noContent().build();
 	}
@@ -57,9 +57,7 @@ public class TodoResource {
 			@PathVariable String username, 
 			@PathVariable int id,
 			@Valid @RequestBody Todo todo) {
-		todoService.updateTodo(todo);
-		
-		System.out.println(todo);
+		todoRepository.save(todo);
 		
 		return todo;
 	}

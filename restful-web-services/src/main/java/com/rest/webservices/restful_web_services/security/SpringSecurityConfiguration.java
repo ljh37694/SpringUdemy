@@ -12,7 +12,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 import java.util.List;
 
-//@Configuration
+@Configuration
 public class SpringSecurityConfiguration {
 	
 	@Bean
@@ -36,7 +36,7 @@ public class SpringSecurityConfiguration {
 		return http.build();
 	}
 	
-	//@Bean
+	@Bean
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of("http://localhost:3000"));

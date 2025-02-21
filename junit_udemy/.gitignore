@@ -1,0 +1,13 @@
+/bin/
+# macOS 시스템 파일
+.DS_Store
+
+# Eclipse 설정 파일
+.classpath
+.project
+.settings/
+
+# Gradle 빌드 관련 파일 (필요한 경우)
+*.lock
+*.bin
+.gradle/

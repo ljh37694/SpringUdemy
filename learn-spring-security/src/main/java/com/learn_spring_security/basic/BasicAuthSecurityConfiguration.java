@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -63,12 +64,14 @@ public class BasicAuthSecurityConfiguration {
 	
 	@Bean UserDetailsService userDetailsService(DataSource dataSource) {
 		var user = User.withUsername("Lee")
-				.password("{noop}pass")
+				.password("pass")
+				.passwordEncoder(str -> passwordEncoder().encode(str))
 				.roles("USER")
 				.build();
 		
 		UserDetails admin = User.withUsername("admin")
-				.password("{noop}pass")
+				.password("pass")
+				.passwordEncoder(str -> passwordEncoder().encode(str))
 				.roles("ADMIN")
 				.build();
 		
@@ -77,5 +80,10 @@ public class BasicAuthSecurityConfiguration {
 		jdbcUserDetailsManger.createUser(admin);
 		
 		return jdbcUserDetailsManger;
+	}
+	
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 }

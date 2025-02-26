@@ -25,12 +25,12 @@ public class TodoResource {
 	}
 	
 	@GetMapping("/users/{username}/todos")
-	public Todo retrieveTodosForSpecificUser(@PathVariable String username) {
+	public Todo retrieveTodosForSpecificUser(@PathVariable(name = "username") String username) {
 		return TODO_LIST.get(0);
 	}
 	
 	@PostMapping("/users/{username}/todos")
-	public void createTodoForSpecificUser(@PathVariable String username, @RequestBody Todo todo) {
+	public void createTodoForSpecificUser(@PathVariable(name = "username") String username, @RequestBody Todo todo) {
 		logger.info("Create {} for {}", todo, username);
 	}
 }

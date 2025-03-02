@@ -16,26 +16,27 @@ public class LoggingAspect {
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
+	private final String bussinessPointcut = "com.learn_spring_aop.aspects.CommonPointcutConfig.businessPackageConfig()";
 	
-	@Before("execution(* com.learn_spring_aop.business.*.*(..))")
+	@Before(bussinessPointcut)
 	public void logMethodCallBeforeExecution(JoinPoint joinPoint) {
 		logger.info("Before Aspect - Method is called - {}", joinPoint);
 	}
 	
-	@After("execution(* com.learn_spring_aop.business.*.*(..))")
+	@After(bussinessPointcut)
 	public void logMethodCallAfterExecution(JoinPoint joinPoint) {
 		logger.info("After Aspect - {} has executed", joinPoint);
 	}
 	
 	@AfterReturning(
-			pointcut = "execution(* com.learn_spring_aop.business.*.*(..))",
+			pointcut = bussinessPointcut,
 			returning = "resultValue")
 	public void logMethodCallAfterReturningExecution(JoinPoint joinPoint, Object resultValue) {
 		logger.info("AfterReturning Aspect - {} has returned {}", joinPoint, resultValue);
 	}
 	
 	@AfterThrowing(
-			pointcut = "execution(* com.learn_spring_aop.business.*.*(..))",
+			pointcut = bussinessPointcut,
 			throwing = "exception")
 	public void logMethodCallAfterThrowingExecution(JoinPoint joinPoint, Exception exception) {
 		logger.info("AfterThrowing Aspect - {} has thorwn an exception {}", 

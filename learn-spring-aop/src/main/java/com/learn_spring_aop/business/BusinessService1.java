@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.springframework.stereotype.Service;
 
+import com.learn_spring_aop.annotations.TrackTime;
 import com.learn_spring_aop.data.DataService1;
 
 @Service
@@ -15,6 +16,7 @@ public class BusinessService1 {
 		this.dataService1 = dataService1;
 	}
 
+	@TrackTime
 	public int findMax() {
 		int[] data = dataService1.retrieveData();
 		//throw new RuntimeException();

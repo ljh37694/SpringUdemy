@@ -12,4 +12,7 @@ public class CommonPointcutConfig {
 	// Service가 들어가는 모든 bean
 	@Pointcut("bean(*Service*)")
 	public void allPackageConfigWithBean() {}
+	
+	@Pointcut("@annotation(com.learn_spring_aop.annotations.TrackTime)")
+	public void trackTimeAnnotation() {}
 }

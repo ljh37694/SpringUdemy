@@ -13,8 +13,9 @@ public class PerfomanceTrackingAspect {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	private final String dataPointcut = "com.learn_spring_aop.aspects.CommonPointcutConfig.dataPackageConfig()"; 
-	
-	@Around(dataPointcut)
+	private final String trackTimePointcut = "com.learn_spring_aop.aspects.CommonPointcutConfig.trackTimeAnnotation()";
+	//@Around(dataPointcut)
+	@Around(trackTimePointcut)
 	public Object findExcutionTime(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
 		// Start a timer
 		long startTimeMillis = System.currentTimeMillis();

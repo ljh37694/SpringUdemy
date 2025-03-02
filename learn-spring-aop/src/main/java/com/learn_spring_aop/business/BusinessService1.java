@@ -17,7 +17,7 @@ public class BusinessService1 {
 
 	public int findMax() {
 		int[] data = dataService1.retrieveData();
-		
+		//throw new RuntimeException();
 		return Arrays.stream(data).max().orElse(0);
 	}
 }
